@@ -2,6 +2,12 @@
 
 A FastAPI backend for Tripwise.
 
+**Live API:** https://tripwise-backend-2n8f.onrender.com
+**Interactive docs:** https://tripwise-backend-2n8f.onrender.com/docs
+**Health check:** https://tripwise-backend-2n8f.onrender.com/api/health
+
+> Hosted on Render's free tier. The first request after a period of inactivity can take about 50 seconds while the service wakes up.
+
 - **Stage 2** - destination discovery on top of Geoapify's geocoding and
   places APIs.
 - **Stage 3** - a persistent itinerary (saved destinations) backed by
@@ -171,6 +177,8 @@ neither.
   `sync: false` and are set in the Render dashboard - never in the file.
 - [`Procfile`](Procfile) - the same start command for Heroku-style hosts:
   `web: uvicorn main:app --host 0.0.0.0 --port $PORT`.
+
+  Deployed at: https://tripwise-backend-2n8f.onrender.com
 
 ## Project layout
 

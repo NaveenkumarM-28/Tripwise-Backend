@@ -1,0 +1,24 @@
+# Render blueprint for the Tripwise backend.
+# Create the service from the Render dashboard with this file ("Blueprint")
+# and set the secret environment variables there - see README.md.
+services:
+  - type: web
+    name: tripwise-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    # --loop local_loop:local_loop_factory keeps psycopg's async API on a
+    # selector event loop (its requirement); on Linux this matches uvicorn's
+    # default anyway, on Windows it is what makes the DB layer work at all.
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT --loop local_loop:local_loop_factory
+    healthCheckPath: /api/health
+    envVars:
+      # Matches the local venv (Python 3.12.10). Render reads this and uses
+      # that interpreter for the build and the running service.
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      # Secrets - created/managed in the Render dashboard, never in this file:
+      - key: GEOAPIFY_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
